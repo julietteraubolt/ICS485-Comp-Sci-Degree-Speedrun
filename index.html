@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <title>Your Game Title - Coming Soon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --darker-gray: #1e1e1c;
+            --timberwolf: #DADAD3;
+            --sage: #9CAA89;
+            --ash-gray: #ACC7C0;
+            --black: #010101;
+            --battleship-gray: #8B8474;
+            --ash-gray-2: #C5D2B7;
+            --platinum: #E7E8E3;
+            --dark-sage: #7A8B6A;
+            --darker-ash: #8BAAA0;
+        }
+
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            line-height: 1.6;
+            color: rgb(82, 82, 82);
+            background: linear-gradient(135deg, var(--sage) 0%, var(--ash-gray) 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--darker-gray);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--sage);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--timberwolf);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--timberwolf);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--sage);
+        }
+
+        /* Floating Pixel Elements */
+        .pixel-float {
+            position: absolute;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: bold;
+            opacity: 0.8;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+            color: var(--sage);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+
+        .pixel-float:nth-child(odd) {
+            animation-direction: reverse;
+        }
+
+        .pixel-float.code {
+            font-size: 1.5rem;
+            color: var(--darker-gray);
+        }
+
+        /* Individual positioning */
+        .pixel-1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .pixel-2 { top: 20%; left: 15%; animation-delay: 1s; }
+        .pixel-3 { top: 30%; left: 5%; animation-delay: 2s; }
+        .pixel-4 { top: 65%; left: 10%; animation-delay: 3s; }
+        .pixel-5 { top: 80%; left: 20%; animation-delay: 4s; }
+        .pixel-6 { top: 60%; left: 70%; animation-delay: 5s; }
+        .pixel-7 { top: 90%; left: 85%; animation-delay: 1.5s; }
+        .pixel-8 { top: 15%; left: 90%; animation-delay: 2.5s; }
+        .pixel-9 { top: 75%; left: 90%; animation-delay: 3.5s; }
+        .pixel-10 { top: 85%; left: 60%; animation-delay: 4.5s; }
+
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg); 
+                opacity: 0.6; 
+            }
+            50% { 
+                transform: translateY(-20px) rotate(5deg); 
+                opacity: 0.8; 
+            }
+        }
+
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: rgb(46, 46, 46);
+            background: linear-gradient(rgba(87, 139, 115, 0.6), rgba(212, 224, 199, 0.6)), radial-gradient(circle at center, var(--darker-ash) 0%, var(--sage) 50%, var(--ash-gray-2) 100%);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            border: 1px solid var(--darker-gray);
+            padding: 15px 30px;
+            background: linear-gradient(45deg, var(--sage), var(--ash-gray));
+            color: var(--black);
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            box-shadow: 0 4px 15px rgba(156, 170, 137, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(156, 170, 137, 0.6);
+            background: linear-gradient(45deg, var(--dark-sage), var(--darker-ash));
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 80px 0;
+            background: var(--platinum);
+            margin: 0;
+        }
+
+        .section:nth-child(even) {
+            background: var(--timberwolf);
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--darker-gray);
+        }
+
+        .section-content {
+            display: grid;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        /* Pitch Section */
+        .pitch-content {
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .pitch-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .pitch-image {
+            text-align: center;
+        }
+
+        .placeholder-image {
+            width: 100%;
+            max-width: 400px;
+            height: 250px;
+            background: linear-gradient(45deg, var(--sage), var(--ash-gray));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--black);
+            font-size: 1.2rem;
+            margin: 0 auto;
+            font-weight: bold;
+        }
+
+        /* Trailer Section */
+        .trailer {
+            background: var(--darker-gray);
+            color: var(--timberwolf);
+        }
+
+        .trailer h2 {
+            color: var(--black);
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            aspect-ratio: 16/9;
+            background: var(--battleship-gray);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 3px solid var(--sage);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(45deg, var(--battleship-gray), var(--darker-gray));
+            color: var(--timberwolf);
+            font-size: 1.2rem;
+        }
+
+        /* Gallery Section */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .gallery-item {
+            background: var(--ash-gray-2);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(106, 108, 95, 0.2);
+            transition: transform 0.3s;
+            border: 2px solid var(--sage);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(156, 170, 137, 0.3);
+        }
+
+        .gallery-item img, .gallery-item .placeholder-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .gallery-item-content {
+            padding: 1.5rem;
+        }
+
+        .gallery-item h3 {
+            margin-bottom: 1rem;
+            color: var(--darker-gray);
+        }
+
+        /* Development Section */
+        .dev-timeline {
+            display: grid;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            padding: 2rem;
+            background: var(--ash-gray-2);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(106, 108, 95, 0.2);
+            border-left: 5px solid var(--sage);
+        }
+
+        .timeline-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--sage), var(--ash-gray));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--black);
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 1.5rem;
+        }
+
+        .timeline-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--darker-gray);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: var(--timberwolf);
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 3px solid var(--sage);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .pitch-content {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">Comp Sci Degree Speed Run</a>
+            <ul class="nav-links">
+                <li><a href="#pitch">Pitch</a></li>
+                <li><a href="#trailer">Trailer</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#development">Development</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+
+        <div class="pixel-float pixel-1 code">{}</div>
+        <div class="pixel-float pixel-2 code">█</div>
+        <div class="pixel-float pixel-3 code">{}</div>
+        <div class="pixel-float pixel-4 code">█</div>
+        <div class="pixel-float pixel-5 code">{}</div>
+        <div class="pixel-float pixel-6 code">█</div>
+        <div class="pixel-float pixel-7 code">{}</div>
+        <div class="pixel-float pixel-8 code">█</div>
+        <div class="pixel-float pixel-9 code">{}</div>
+        <div class="pixel-float pixel-10 code">█</div>
+
+        <div class="hero-content">
+            <h2>Brought to you by ICS Majors:</h2>
+            <h4>Jazz Lam, David Gieselman, Tamela Brunson, Juliette Raubolt</h4>
+            <br><h1 style="font-family: 'Press Start 2P', monospace;">Comp Sci Degree Speed Run</h1>
+            <a href="#pitch" class="cta-button">Discover More</a>
+            <p><br><br>⭐⭐⭐⭐⭐ "A+ worthy game if I ever saw one" <br>- Anonymous</p>
+        </div>
+    </section>
+
+    <section id="pitch" class="section">
+        <div class="container">
+            <h2>Game Pitch</h2>
+            <div class="section-content pitch-content">
+                <div class="pitch-text">
+                    <p><strong>Experience Comp Sci Degree Speed Run</strong>, a relatable game with a classic feel. Work through your ICS degree as you navigate the unique challenges that come with each year. Get your degree by working through each year's minigame and meeting plenty of fun and familiar characters along the way.</p>
+                    <br>
+                    <p><strong>Features include:</strong></p>
+                    <ul style="margin-left: 2rem; margin-top: 1rem;">
+                        <li>Visual Novel RPG Game with a cartoon aesthetic</li>
+                        <li>Four years that reflect the various stages every ICS major experiences</li>
+                        <li>Engaging but intuitive minigames to work through along the way</li>
+                    </ul>
+                    <p><strong>Storyline Overview:</strong></p>
+                    <ul style="margin-left: 2rem; margin-top: 1rem;">
+                        <li>Freshman year: jittery ambition meet ICS 111 and Brad the Business Major</li>
+                        <li>Sophomore year: welcome to the world of nightclasses and tech bros</li>
+                        <li>Junior year: may the algorithms be ever in your favor</li>
+                        <li>Senior year: the hardest part of capstone is the senioritis</li>
+                    </ul>
+                </div>
+                <div class="pitch-image">
+                    <img src="game_imgs/title_screen.png" style="width: 100%; max-width: 400px; max-height: 250px; border-radius: 15px;" alt="Game Title Screen">
+                    <br><br>
+                    <img src="game_imgs/campus_center_bg.png" style="width: 100%; max-width: 400px; max-height: 250px; border-radius: 15px;" alt="Campus Center Background">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="trailer" class="section trailer">
+        <div class="container">
+            <h2>Game Trailer</h2>
+            <div class="video-container">
+                <div class="video-placeholder">
+                    Your Game Trailer Video Here<br>
+                    <small>(Replace this div with your video embed)</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="section">
+        <div class="container">
+            <h2>Gallery</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <br>
+                    <img src="game_imgs/busad.png" style="width: 100%; height: 200px; object-fit: contain;">
+                    <div class="gallery-item-content">
+                        <h3>Concept Art</h3>
+                        <p>Early drafting of scenes that reflect UH Manoa settings and create a relatable feel.</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <br>
+                    <img src="game_imgs/pause_menu.png" style="width: 100%; height: 200px; object-fit: contain;">
+                    <div class="gallery-item-content">
+                        <h3>ICS Theme</h3>
+                        <p>Subtle details developed to play into ICS theme and set the tone for gameplay.</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <br>
+                    <img src="game_imgs/character_sketch.jpg" style="width: 100%; height: 200px; object-fit: contain;">
+                    <div class="gallery-item-content">
+                        <h3>Character Design</h3>
+                        <p>Character development designing to reflect personality and provide a sense of backstory.</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <br>
+                    <img src="game_imgs/mini_game_bg.png" style="width: 100%; height: 200px; object-fit: contain;">
+                    <div class="gallery-item-content">
+                        <h3>Minigame Creation</h3>
+                        <p>Minigame design that provides instructions to a simple but fun game while still contributing to the mood of the level.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="development" class="section">
+        <div class="container">
+            <h2>Future Development</h2>
+            <div class="dev-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">1</div>
+                    <div class="timeline-content">
+                        <h3>What We Have</h3>
+                        <ul>
+                            <li>Development of core gameplay mechanics</li>
+                            <li>Initial storyline and character designs</li>
+                            <li>Basic level layouts and environmental art</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon">2</div>
+                    <div class="timeline-content">
+                        <h3>What's Next</h3>
+                        <ul>
+                            <li>Build out more level experiences</li>
+                            <li>Introduce new characters and storylines</li>
+                            <li>Explore bonus levels of graduate school and industry challenges (acing that technical interview)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 ICS Majors. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script for smooth scrolling enhancement
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add fade-in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(30px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
